@@ -1,37 +1,38 @@
-import React, { useState } from "react";
 import "./App.css";
-import Header from "./components/Header/Header";
-import Product from "./components/Header/Products/Product";
-import { products } from "./data";
-import { Link } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Detail from "./pages/Detail.jsx";
+import Layout from "./components/Header/Layout.jsx";
+import Home from "./pages/Home";
+import CartProvider from "./providers/CartProvider";
+import Cart from "./pages/Cart";
 
-const App = () => {
-  const [shits, setShits] = useState([]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/Detail/:id",
+        element: <Detail />,
+      },
+      {
+        path: "/cart",
+        element: <Cart/>,
+      },
+    ],
+  },
+]);
 
-  const addHandler = (shit) => {
-    console.log(`${JSON.stringify(shit)} in the toilet`);
-    const newShits = [...shits, shit];
-    setShits(newShits);
-  };
-
+function App() {
   return (
-    <>
-      {products.map((product) => {
-        const { id, name, price, image, description } = product;
-        return (
-          <Link key={id} to={`/detail/${id}`}>
-            <Product
-              namee={name}
-              pricee={price}
-              imagee={image}
-              descriptionn={description}
-              add={addHandler}
-            />
-          </Link>
-        );
-      })}
-    </>
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   );
-};
+}
 
 export default App;
