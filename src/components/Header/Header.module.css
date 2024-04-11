@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+.site__name {
+  font-size: 1.125rem;
+  color: salmon;
+  text-decoration: none;
+  transition: text-shadow 0.2 ease-in-out;
+}
+
+.site__name:hover {
+  text-decoration: none;
+  text-shadow: 4px 4px 12px red;
+}
